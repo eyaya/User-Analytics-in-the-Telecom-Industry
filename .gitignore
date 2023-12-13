@@ -2,7 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+# local folders
+data/
+assets/
 # C extensions
 *.so
 
