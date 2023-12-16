@@ -13,9 +13,8 @@ sys.path.append(os.path.abspath(os.path.join('./scripts')))
 
 def overview_app():
     st.title("Overview")
-    st.write(
-        "Customer Data's Overview")
-    number = st.number_input("Enter the number of rows and press enter: ", min_value=None, max_value=None, value=0,
+    st.write( "Users Data Overview")
+    number = st.number_input("Enter the number of rows and press enter: ", min_value=None, max_value=None, value=10,
                              step=None, format=None, key=None, help=None, on_change=None, args=None, kwargs=None, disabled=False)
 
     df = pd.read_csv('./data/cleaned_data2.csv', nrows=number)

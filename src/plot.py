@@ -85,7 +85,7 @@ class Plot:
         # fig, ax = plt.subplots(1, figsize=(12, 7))
         sns.displot(data=df, x=column, color='orchid',
                     kde=True, height=4, aspect=2)
-        plt.title(f'Distribution of {column}', size=20, fontweight='bold')
+        plt.title(f'Distribution of {column}', size=14, fontweight='bold')
         self.logger.info(
             'Plotting a histogram')
         plt.show()
@@ -153,8 +153,7 @@ class Plot:
             'Plotting a pie chart')
         plt.show()
         
-    def distribution_plot(self, df:pd.DataFrame, x, title):
-        sns.displot(data=df, x=x, color='orchid',
-                        kde=True, height=7, aspect=2)
-        plt.title(f'Distribution of {title}', size=14, fontweight='bold')
+    def distplot(self, df:pd.DataFrame, x, title):
+        sns.displot(data=df, x=x, kde=True, height=7, aspect=2)
+        plt.title(f'Distribution of {title}', size=20, fontweight='bold')
         plt.show()
