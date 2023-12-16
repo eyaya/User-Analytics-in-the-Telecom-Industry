@@ -28,7 +28,7 @@ class Logger:
 
         self.logger = logger
 
-    def get_logger(self) -> logging.Logger:
+    def get_app_logger(self) -> logging.Logger:
         """Return the logger object.
 
         Returns:
