@@ -122,7 +122,7 @@ class Outlier:
         df = np.where(df > upper,df.mean(),np.where(df < lower, df.mean(),df))
 
         return df
-    def iqr_capping(self, df, cols, factor):
+    def iqr_capping(self, df):
     
         Q1 = df.quantile(0.25)
         Q3 = df.quantile(0.75)

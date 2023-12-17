@@ -134,7 +134,7 @@ class PreProcess:
         
         return missing_value_df
 
-    def fill_nulls_with_method(self, df, method):
+    def fill_nulls_with_method(self, df, cols ,method):
         """Fill numerical variables.
 
         Args:
@@ -143,21 +143,25 @@ class PreProcess:
         try:
             if method == 'mean' or method == 'median':
                 if method == "mean":
-                    num_cols = df.select_dtypes(include=np.number).columns
-                    df.loc[:, num_cols] = df.loc[:, num_cols].fillna(
-                        df.loc[:, num_cols].mean())
+                    #num_cols = df.select_dtypes(include=np.number).columns
+                    df.loc[:, cols] = df.loc[:, cols].fillna(
+                        df.loc[:, cols].mean())
                 else:
-                    num_cols = df.select_dtypes(include=np.number).columns
-                    df.loc[:, num_cols] = df.loc[:, num_cols].fillna(
-                        df.loc[:, num_cols].median())
+                    #num_cols = df.select_dtypes(include=np.number).columns
+                    df.loc[:, cols] = df.loc[:, cols].fillna(
+                        df.loc[:, cols].median())
                     
             elif method == 'mode':
-                cat_cols = df.select_dtypes(exclude=np.number).columns
-                df.loc[:, cat_cols] = df.loc[:, cat_cols].fillna(
-                        df.loc[:, cat_cols].mode().iloc[0])
+                #cat_cols = df.select_dtypes(exclude=np.number).columns
+                df.loc[:, cols] = df.loc[:, cols].fillna(
+                        df.loc[:, cols].mode().iloc[0])
                     
             else:
-                df.fillna(method=method, inplace=True)
+                if method == 'ffill':
+                    df.ffillna()
+                else:
+                    df.bfillna()
+                    
                 
             self.logger.info(f'The DataFrame was imputated successfully with method {method}.')
         except Exception:
@@ -187,4 +191,16 @@ class PreProcess:
         for col in cols:
             df[col] = np.log(df[col])
         return df
+    
+    def convert_bytes_to_megabytes(self, df, col):
+        """Convert byte data to megabyte.
+
+        Args:
+            df (pd.DataFrame): A dataframe to be preprocessed
+        """
+        megabyte = 1*10e+5
+        megabyte_col = df[col] / megabyte
+        # self.logger.info(
+        #     'Converted bytes to megabytes')
+        return megabyte_col
     
